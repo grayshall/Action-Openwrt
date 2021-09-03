@@ -1,5 +1,5 @@
---- feeds.conf.default	2021-09-03 17:07:08.950988577 +0800
-+++ feeds.conf.default	2021-09-03 17:07:08.950988577 +0800
+--- feeds.conf.default	2020-07-05 19:07:08.950988577 +0800
++++ feeds.conf.default	2020-07-05 19:07:08.950988577 +0800
 @@ -2,8 +2,5 @@
  src-git routing https://git.openwrt.org/feed/routing.git
  src-git telephony https://git.openwrt.org/feed/telephony.git
