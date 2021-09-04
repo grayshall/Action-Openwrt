@@ -1,6 +1,7 @@
 #--- feeds.conf.default	2020-07-05 19:07:08.950988577 +0800
 #+++ feeds.conf.default	2020-07-05 19:07:08.950988577 +0800
 #@@ -3,9 +3,6 @@
+sed -i 's/^#\(.*openwrt\)/\1/' feeds.conf.default
 # Add a feed source
  echo 'src-git routing https://git.openwrt.org/feed/routing.git' >>feeds.conf.default
  echo 'src-git telephony https://git.openwrt.org/feed/telephony.git' >>feeds.conf.default
