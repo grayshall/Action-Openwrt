@@ -12,5 +12,5 @@
 -#src-git helloworld https://github.com/fw876/helloworld
 +src-git helloworld https://github.com/fw876/helloworld
 +src-git lienol https://github.com/Lienol/openwrt-package
-+src-git passwall https://github.com/xiaorouji/openwrt-passwall.git
++src-git passwall https://github.com/xiaorouji/openwrt-passwall
 
