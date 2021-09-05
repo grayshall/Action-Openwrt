@@ -1,6 +1,6 @@
 --- feeds.conf.default	2020-07-05 19:07:08.950988577 +0800
 +++ feeds.conf.default	2020-07-05 19:07:08.950988577 +0800
-@@ -1,8 +1,6@@
+@@ -3,8 +3,6@@
  src-git routing https://git.openwrt.org/feed/routing.git
  src-git telephony https://git.openwrt.org/feed/telephony.git
 -#src-git video https://github.com/openwrt/video.git
@@ -9,6 +9,7 @@
 -#src-git management https://github.com/openwrt-management/packages.git
 -#src-git oldpackages http://git.openwrt.org/packages.git
 -#src-link custom /usr/src/openwrt/custom-feed
-src-git helloworld https://github.com/fw876/helloworld
+-#src-git helloworld https://github.com/fw876/helloworld
++src-git helloworld https://github.com/fw876/helloworld
 +src-git lienol https://github.com/Lienol/openwrt-package
 +src-git passwall https://github.com/xiaorouji/openwrt-passwall
