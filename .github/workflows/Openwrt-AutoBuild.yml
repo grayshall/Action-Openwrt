@@ -98,8 +98,8 @@ jobs:
       
        
 
-    - name: Load custom configuration
-      run: |
+    - name:Load custom configuration
+      run:|
          cd openwrt && mv ../user/${{matrix.target}}/config.diff .config && cd ..        
          echo "Apply files..."
          if [ -n "$(ls -A "user/common/files" 2>/dev/null)" ]; then
@@ -123,42 +123,42 @@ jobs:
          )
          fi
          
-    - name: Download package
-      id: package
-      run: |
+    - name:Download package
+      id:package
+      run:|
         cd openwrt
         make defconfig
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
-    - name: Compile the firmware
-      id: compile
-      run: |
+    - name:Compile the firmware
+      id:compile
+      run:|
         cd openwrt
         echo -e "$(nproc) thread compile"
         make -j$(nproc) || make -j1 V=s
         find ./bin  ! -name '*ac2100*' -name *initramfs*  -exec rm -f {} \;
         echo "::set-output name=status::success"
         
-    - name:  Pack packages_dir
-      if: steps.compile.outputs.status == 'success'
-      run: |
+    - name:Pack packages_dir
+      if:steps.compile.outputs.status == 'success'
+      run:|
         cd openwrt/bin/packages/
         tar -cvf  ${{matrix.target}}_packages.tar ./
         gzip ${{matrix.target}}_packages.tar
         mv *.tar.gz ..
         
-    - name:  Pack targets_dir
-      if: steps.compile.outputs.status == 'success'
-      run: |
+    - name:Pack targets_dir
+      if:steps.compile.outputs.status == 'success'
+      run:|
         cd openwrt/bin/targets/
         tar -cvf  ${{matrix.target}}_targets.tar ./
         gzip ${{matrix.target}}_targets.tar
         mv *.tar.gz ..
         
-    - name: Assemble Firmware
-      run: |
+    - name:Assemble Firmware
+      run:|
           rm -rf ./Firmware/
           mkdir -p ./Firmware/
           find openwrt/bin/targets/ -name "*bin*" | xargs -i cp {} ./Firmware/
@@ -166,22 +166,22 @@ jobs:
 
     
            
-    - name: Upload Packages to CowTransfer
-      if: env.UPLOAD_PACKAGES_DIR == 'true' && env.UPLOAD_TO_COWTRANSFER == 'true' && !cancelled() &&  steps.compile.outputs.status == 'success'
-      run: |
+    - name:Upload Packages to CowTransfer
+      if:env.UPLOAD_PACKAGES_DIR == 'true' && env.UPLOAD_TO_COWTRANSFER == 'true' && !cancelled() &&  steps.compile.outputs.status == 'success'
+      run:|
         curl -fsSL git.io/file-transfer | sh
          ./transfer cow --block 2621440 -s -p 64 --no-progress openwrt/bin/${{matrix.target}}_packages.tar.gz
         
-    - name: Upload Targetss to CowTransfer
-      if: env.UPLOAD_TARGETS_DIR == 'true' && env.UPLOAD_TO_COWTRANSFER == 'true' && !cancelled() &&　 steps.compile.outputs.status == 'success'
-      run: |
+    - name:Upload Targetss to CowTransfer
+      if:env.UPLOAD_TARGETS_DIR == 'true' && env.UPLOAD_TO_COWTRANSFER == 'true' && !cancelled() &&　 steps.compile.outputs.status == 'success'
+      run:|
         curl -fsSL git.io/file-transfer | sh
          ./transfer cow --block 2621440 -s -p 64 --no-progress openwrt/bin/${{matrix.target}}_targets.tar.gz
         
 
-    - name: Upload packages directory
-      if: env.UPLOAD_PACKAGES_DIR == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled()　&& steps.compile.outputs.status == 'success'
-      uses: actions/upload-artifact@main
+    - name:Upload packages directory
+      if:env.UPLOAD_PACKAGES_DIR == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled()　&& steps.compile.outputs.status == 'success'
+      uses:actions/upload-artifact@main
       with:
         name: OpenWrt_packages_${{matrix.target}}
         path: openwrt/bin/packages
