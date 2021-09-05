@@ -79,7 +79,7 @@ jobs:
         
     - name: custom feeds
       run: |
-          cd package
+          cd openwrt
           mkdir openwrt-packages   
           cd openwrt-packages
           git  clone freifunk https://github.com/freifunk/openwrt-packages.git
