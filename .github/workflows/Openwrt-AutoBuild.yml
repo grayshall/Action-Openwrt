@@ -77,9 +77,9 @@ jobs:
           git clone https://github.com/kenzok8/small.git  
         
     - name: Update&Install feeds
-      run: cd openwrt 
+      run: |
          ./scripts/feeds update -a
-        ./scripts/feeds install -a
+         ./scripts/feeds install -a
 
     - name: Load custom configuration
       run: |
