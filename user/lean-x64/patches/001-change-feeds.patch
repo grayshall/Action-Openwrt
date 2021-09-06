@@ -9,6 +9,6 @@
 -#src-git management https://github.com/openwrt-management/packages.git
 -#src-git oldpackages http://git.openwrt.org/packages.git
 -#src-link custom /usr/src/openwrt/custom-feed
-+src-git lienol https://github.com/Lienol/openwrt-package
++src-git lienol https://github.com/Lienol/openwrt-package.git
 +src-git passwall https://github.com/xiaorouji/openwrt-passwall.git
-+src-git helloworld https://github.com/fw876/helloworld
++src-git helloworld https://github.com/fw876/helloworld.git
