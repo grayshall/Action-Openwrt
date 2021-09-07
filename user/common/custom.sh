@@ -8,12 +8,12 @@ rm -rf feeds/packages/net/smartdns
 rm -rf package/lean/luci-theme-argon
 
 
-svn co https://github.com/openwrt/packages/trunk/libs/libcap                                             feeds/packages/libs/libcap
+svn co https://github.com/openwrt/packages/libs/libcap                                             feeds/packages/libs/libcap
 svn co https://github.com/Lienol/openwrt/trunk/package/diy/luci-app-adguardhome                          package/adg
 svn co https://github.com/Lienol/openwrt-packages/trunk/net/smartdns                                     package/smartdns
 
 git clone https://github.com/pymumu/luci-app-smartdns.git -b lede                                        package/luci-app-smartdns
-git clone https://github.com/hyird/Openwrt-AdguardHome.git                                               package/AdGuardHome
+git clone https://github.com/KFERMercer/Openwrt-AdguardHome.git                                               package/AdGuardHome
 git clone https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom.git                             package/luci-theme-infinityfreedom
 git clone https://github.com/yangsongli/luci-theme-atmaterial.git                                        package/luci-theme-atmaterial
 git clone https://github.com/jerrykuku/luci-theme-argon.git -b 18.06                                     package/luci-theme-argon-jerrykuku
