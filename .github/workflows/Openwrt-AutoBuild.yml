@@ -98,7 +98,7 @@ jobs:
          cp -r -f user/${{matrix.target}}/files/* openwrt/package/base-files/files/
          fi
         
-         echo "Apply custom.sh"
+         echo "Apply user/common/custom.sh"
          if [ -f "user/common/custom.sh" ]; then
          (
            cd openwrt
