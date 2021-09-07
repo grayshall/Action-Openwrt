@@ -18,5 +18,5 @@ sed -i  " 23i sed -i 's/http:/https:/g' /etc/opkg/distfeeds.conf"  package/lean/
 sed -i  "s/R20\(.[0-9].[0-9]\{1,2\}\)/R21.$version/g" package/lean/default-settings/files/zzz-default-settings
 
 
-sed -i "44i echo 'src/gz openwrt_all https://openwrt.download/ExtraPackages/all' > /etc/opkg/customfeeds.conf " package/lean/default-settings/files/zzz-default-settings
-sed -i "45i echo 'src/gz openwrt_ipk https://openwrt.download/ExtraPackages/x86_64' >> /etc/opkg/customfeeds.conf " package/lean/default-settings/files/zzz-default-settings
+#sed -i "44i echo 'src/gz openwrt_all https://openwrt.download/ExtraPackages/all' > /etc/opkg/customfeeds.conf " package/lean/default-settings/files/zzz-default-settings
+#sed -i "45i echo 'src/gz openwrt_ipk https://openwrt.download/ExtraPackages/x86_64' >> /etc/opkg/customfeeds.conf " package/lean/default-settings/files/zzz-default-settings
