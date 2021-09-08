@@ -41,7 +41,7 @@ jobs:
       run: |
          date=$(date +%Y-%m-%d)
          echo "DATE=$date" >> $GITHUB_ENV
-- name: Initialization environment
+    - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
@@ -68,7 +68,7 @@ jobs:
         sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev patch python3 python2.7 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex node-uglify git gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx-ucl libelf-dev autoconf automake libtool autopoint device-tree-compiler g++-multilib antlr3 gperf wget curl swig rsync
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
-- name: Load Settings.ini
+    - name: Load Settings.ini
       run: |    
         source "${GITHUB_WORKSPACE}/user/${{matrix.target}}/settings.ini"
         echo "REPO_URL=${REPO_URL}" >> $GITHUB_ENV
@@ -81,13 +81,13 @@ jobs:
       #  echo "UPLOAD_TO_COWTRANSFER=${UPLOAD_TO_COWTRANSFER}" >> $GITHUB_ENV
       #  echo "WECHAT_NOTIFICATION=${WECHAT_NOTIFICATION}" >> $GITHUB_ENV
         
-- name: Clone source code
+    - name: Clone source code
       run: |
         git clone ${{ env.REPO_URL }} -b ${{ env.REPO_BRANCH }} openwrt
         cd openwrt
         sed -i 's/#src-git helloworld/src-git helloworld/g' ./feeds.conf.default
 
- - name: custom feeds
+    - name: custom feeds
       run: |
           cd openwrt
            git clone https://github.com/Lienol/openwrt-package.git package/lienol
@@ -97,13 +97,13 @@ jobs:
 #           git clone https://github.com/jerrykuku/lua-maxminddb.git 
 #           git clone https://github.com/jerrykuku/luci-app-vssr.git
 
- - name: Update&Install feeds
+    - name: Update&Install feeds
       run: |
          cd openwrt
          ./scripts/feeds update -a
          ./scripts/feeds install -a
 
-- name: Load custom configuration
+    - name: Load custom configuration
       run: |
          cd openwrt && mv ../user/${{matrix.target}}/config.diff .config && cd ..        
          echo "Apply files..."
