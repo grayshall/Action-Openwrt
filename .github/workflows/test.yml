@@ -7,8 +7,8 @@
 name: grays-0909Openwrt-AutoBuild
 
 on: 
-# release:
-#   types: [published]
+ release:
+   types: [published]
 
 #  push:
 #  branches: 
@@ -17,8 +17,8 @@ on:
 # schedule:
 #  - cron: 0 8 * * 5
   
-  watch:
-    types: [started]
+#  watch:
+#    types: [started]
 env:
   RUN_VALIDATION: true
 
