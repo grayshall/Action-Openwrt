@@ -27,13 +27,13 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     
-  name: Build ${{matrix.target}}
-  strategy:
+    name: Build ${{matrix.target}}
+    strategy:
       fail-fast: false
       matrix:
         target: [lean-x64] #lean-x64,lean-ipq40xx,lean-mt7621,lean-rockchip,lienol-x64
  
-  steps:
+    steps:
     - name: Checkout
       uses: actions/checkout@master
      
