@@ -7,7 +7,7 @@
 name: grays-0909Openwrt-AutoBuild
 
 on: 
-  # release:
+ # release:
  #   types: [published]
 
 #  push:
@@ -169,10 +169,5 @@ jobs:
       uses: actions/upload-artifact@main
       with:
          name: OpenWrt_firmware_${{matrix.target}}
+         path: ./Firmware/       
 
-         path: ./Firmware/
-#    - name : Upload artifact
-#      uses: actions/upload-artifact@master
-#      with:
-#        name: OpenWrt
-#        path: openwrt/bin
