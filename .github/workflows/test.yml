@@ -17,7 +17,7 @@ on:
 # schedule:
 #  - cron: 0 8 * * 5
   
-#  watch:
+#   watch:
 #    types: [started]
 env:
   RUN_VALIDATION: true
@@ -28,16 +28,16 @@ jobs:
     if: github.event.repository.owner.id == github.event.sender.id
     
   name: Build ${{matrix.target}}
-    strategy:
+  strategy:
       fail-fast: false
       matrix:
         target: [lean-x64] #lean-x64,lean-ipq40xx,lean-mt7621,lean-rockchip,lienol-x64
 
-    steps:
+  steps:
     - name: Checkout
       uses: actions/checkout@master
      
-   - name:日期设置
+    - name: 日期设置
       run: |
          date=$(date +%Y-%m-%d)
          echo "DATE=$date" >> $GITHUB_ENV
@@ -69,7 +69,7 @@ jobs:
         sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev patch python3 python2.7 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex node-uglify git gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx-ucl libelf-dev autoconf automake libtool autopoint device-tree-compiler g++-multilib antlr3 gperf wget curl swig rsync
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
-     - name: Load Settings.ini
+    - name: Load Settings.ini
       run: |    
         source "${GITHUB_WORKSPACE}/user/${{matrix.target}}/settings.ini"
         echo "REPO_URL=${REPO_URL}" >> $GITHUB_ENV
@@ -89,7 +89,7 @@ jobs:
         cd openwrt
         sed -i 's/#src-git helloworld/src-git helloworld/g' ./feeds.conf.default
     
-   - name: custom feeds
+    - name: custom feeds
       run: |
           cd openwrt
            git clone https://github.com/Lienol/openwrt-package.git package/lienol
@@ -104,7 +104,7 @@ jobs:
         ./scripts/feeds install -a
         ./scripts/feeds install -a
 
-   - name: Configuration Customization - Build_x86_64
+    - name: Configuration Customization - ${{matrix.target}}
       run: |
          cd openwrt && mv ../user/${{matrix.target}}/config.diff .config && cd ..        
          echo "Apply files..."
@@ -145,7 +145,7 @@ jobs:
         find ./bin  ! -name '*ac2100*' -name *initramfs*  -exec rm -f {} \;
         echo "::set-output name=status::success"
 
-   - name: Pack packages_dir
+    - name: Pack packages_dir
       if: steps.compile.outputs.status == 'success'
       run: |
         cd openwrt/bin/packages/
@@ -168,7 +168,7 @@ jobs:
           find openwrt/bin/targets/ -name "*bin*" | xargs -i cp {} ./Firmware/
           find openwrt/bin/targets/ -name "*img*" | xargs -i cp -f {} ./Firmware/
       
-   - name: Upload packages directory
+    - name: Upload packages directory
       if: env.UPLOAD_PACKAGES_DIR == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled()　&& steps.compile.outputs.status == 'success'
       uses: actions/upload-artifact@main
       with:
@@ -187,5 +187,5 @@ jobs:
       uses: actions/upload-artifact@main
       with:
          name: OpenWrt_firmware_${{matrix.target}}
-         path: ./Firmware/       
+         path: ./Firmware/   
 
