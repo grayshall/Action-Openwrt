@@ -83,39 +83,15 @@ jobs:
       working-directory: ./openwrt
       run: |
         git clone https://github.com/xiaorouji/openwrt-passwall package/openwrt-passwall
-        git clone https://github.com/kenzok8/litte package/litte     
+        git clone https://github.com/kenzok8/litte package/litte
+        git clone https://github.com/Lienol/openwrt-package.git package/lienol
+        git clone https://github.com/fw876/helloworld.git package/hellworld
     - name: 自定义配置文件Lean
       run: |
-        cd openwrt && mv ../user/${{matrix.target}}/config.diff .config && cd ..   
-        cd openwrt && rm -rf package/litte/naiveproxy
-        cp -f package/litte/default-settings package/lean/default-settings/files/zzz-default-settings
-        cp -f package/litte/banner package/base-files/files/etc/banner
-        cp -f package/litte/4.19Makefile target/linux/x86/Makefile
-        cp -f package/litte/Leandiffconfig .config && make defconfig
+        cd openwrt && mv ../user/${{matrix.target}}/config.diff .config && make defconfig
         git pull && ./scripts/feeds update -a
         ./scripts/feeds install -a
-         echo "Apply files..."
-         if [ -n "$(ls -A "user/common/files" 2>/dev/null)" ]; then
-         cp -r -f user/common/files/* openwrt/package/base-files/files/
-         fi
-         if [ -n "$(ls -A "user/${{matrix.target}}/files" 2>/dev/null)" ]; then
-         cp -r -f user/${{matrix.target}}/files/* openwrt/package/base-files/files/
-         fi
-        
-         echo "Apply user/common/custom.sh"
-         if [ -f "user/common/custom.sh" ]; then
-         (
-           cd openwrt
-           /bin/bash "../user/common/custom.sh"
-         )
-         fi       
-         if [ -f "user/${{matrix.target}}/custom.sh" ]; then
-         (
-           cd openwrt
-           /bin/bash "../user/${{matrix.target}}/custom.sh"
-         )
-         fi
-       
+              
         
         
     - name: 下载包文件
