@@ -4,7 +4,7 @@
 # Author: grayshall-0910
 #=================================================
 
-name: ${{matrix.target}}
+name: Lean-x64
 
 on: 
 #  release:
