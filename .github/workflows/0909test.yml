@@ -4,7 +4,7 @@
 # Author: grayshall
 #=================================================
 
-name: grays-0909Openwrt-AutoBuild
+name: grays-0909-test
 
 on: 
 # release:
@@ -143,7 +143,7 @@ jobs:
       run: |
         echo -e "$(nproc) thread build."
         make -j$(nproc) V=s
-        find ./bin  ! -name '*ac2100*' -name *initramfs*  -exec rm -f {} \;
+ 
         echo "::set-output name=status::success"
 
     - name: Pack packages_dir
