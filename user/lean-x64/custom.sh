@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Apply custom.sh"
+echo "Apply lean-x64/custom.sh"
 
 source ../version
 
