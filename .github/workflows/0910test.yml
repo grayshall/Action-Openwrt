@@ -34,10 +34,10 @@ jobs:
 
 
     steps:
-    - name: 1、检查
+    - name: Checkout
       uses: actions/checkout@master
 
-    - name: 时间设置
+    - name: 1、时间设置
       run: |
          date=$(date +%Y-%m-%d)
          echo "DATE=$date" >> $GITHUB_ENV
@@ -103,18 +103,16 @@ jobs:
         git clone https://github.com/fw876/helloworld.git package/hellworld
     - name: 7、自定义配置文件Lean
       run: |
-        cd openwrt && mv ../user/${{matrix.target}}/config.diff .config && cd..
-        cp -r -f user/${{matrix.target}}/files/* openwrt/package/base-files/files/
+        cd openwrt && mv ../user/${{matrix.target}}/config.diff .config 
         cd openwrt && /bin/bash ../user/common/custom.sh 
-        /bin/bash ../user/${{matrix.target}}/custom.sh
-        git pull && ./scripts/feeds update -a
-        ./scripts/feeds install -a
-              
+        cd openwrt && /bin/bash ../user/${{matrix.target}}/custom.sh
+       
         
         
     - name: 8、下载包文件
       working-directory: ./openwrt
       run: |
+        make defconfig
         make download -j$(nproc)
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
