@@ -103,10 +103,28 @@ jobs:
         git clone https://github.com/fw876/helloworld.git package/hellworld
     - name: 7、自定义配置文件Lean
       run: |
-        cd openwrt && mv ../user/${{matrix.target}}/config.diff .config 
-        cd openwrt && /bin/bash ../user/common/custom.sh 
-        cd openwrt && /bin/bash ../user/${{matrix.target}}/custom.sh
-       
+        cd openwrt && mv ../user/${{matrix.target}}/config.diff .config && cd ..        
+         echo "Apply files..."
+         if [ -n "$(ls -A "user/common/files" 2>/dev/null)" ]; then
+         cp -r -f user/common/files/* openwrt/package/base-files/files/
+         fi
+         if [ -n "$(ls -A "user/${{matrix.target}}/files" 2>/dev/null)" ]; then
+         cp -r -f user/${{matrix.target}}/files/* openwrt/package/base-files/files/
+         fi
+        
+         echo "Apply user/common/custom.sh"
+         if [ -f "user/common/custom.sh" ]; then
+         (
+           cd openwrt
+           /bin/bash "../user/common/custom.sh"
+         )
+         fi       
+         if [ -f "user/${{matrix.target}}/custom.sh" ]; then
+         (
+           cd openwrt
+           /bin/bash "../user/${{matrix.target}}/custom.sh"
+         )
+         fi
         
         
     - name: 8、下载包文件
