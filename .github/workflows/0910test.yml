@@ -102,7 +102,7 @@ jobs:
         git clone https://github.com/Lienol/openwrt-package.git package/lienol
         git clone https://github.com/fw876/helloworld.git package/hellworld
         git clone https://github.com/kenzok8/openwrt-packages packages/kenzo
-        git clone https://github.com/kenzok8/small packages/small
+#        git clone https://github.com/kenzok8/small packages/small
         
     - name: 7、自定义配置文件Lean
       run: |
