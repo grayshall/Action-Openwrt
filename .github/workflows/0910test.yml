@@ -97,10 +97,13 @@ jobs:
     - name: 6、自定义安装源
       working-directory: ./openwrt
       run: |
-        git clone https://github.com/xiaorouji/openwrt-passwall package/openwrt-passwall
+        git clone https://github.com/xiaorouji/openwrt-passwall package/passwall
         git clone https://github.com/kenzok8/litte package/litte
         git clone https://github.com/Lienol/openwrt-package.git package/lienol
         git clone https://github.com/fw876/helloworld.git package/hellworld
+        git clone https://github.com/kenzok8/openwrt-packages packages/kenzo
+        git clone https://github.com/kenzok8/small packages/small
+        
     - name: 7、自定义配置文件Lean
       run: |
         cd openwrt && mv ../user/${{matrix.target}}/config.diff .config && cd ..        
