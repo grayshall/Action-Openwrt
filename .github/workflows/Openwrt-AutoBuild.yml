@@ -15,6 +15,18 @@ on:
 
 env:
   RUN_VALIDATION: true
+  REPO_URL: https://github.com/coolsnowwolf/lede
+  REPO_BRANCH: master
+  FEEDS_CONF: feeds.conf.default
+  CONFIG_FILE: .config
+  DIY_P1_SH: diy1.sh
+  DIY_P2_SH: diy2.sh
+  UPLOAD_BIN_DIR: true
+  UPLOAD_FIRMWARE: true
+  UPLOAD_COWTRANSFER: false
+  UPLOAD_WETRANSFER: false
+  UPLOAD_RELEASE: false
+  TZ: Asia/Shanghai
 
 jobs:
   build:
@@ -25,7 +37,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [lean-x64] #lean-x64,lean-ipq40xx,lean-mt7621,lean-rockchip,lienol-x64
+        target: [lean-x64,lean-rockchip] #lean-x64,lean-ipq40xx,lean-mt7621,lean-rockchip,lienol-x64
     
     steps:
     - name: Checkout
@@ -70,47 +82,29 @@ jobs:
         
     - name: custom feeds
       run: |
-          cd openwrt
-          mkdir openwrt-packages   
-          cd openwrt-packages
-          git clone https://github.com/Lienol/openwrt-package.git
-          git clone https://github.com/fw876/helloworld.git
-          git clone https://github.com/kenzok8/openwrt-packages.git
-           git clone https://github.com/xiaorouji/openwrt-passwall.git
-           git clone https://github.com/jerrykuku/lua-maxminddb.git
-           git clone https://github.com/jerrykuku/luci-app-vssr.git
+        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
+        chmod +x $DIY_P1_SH
+        cd openwrt
+        $GITHUB_WORKSPACE/user/common/$DIY_P1_SH
  
         
-    - name: Update&Install feeds
+    - name: Update feeds
       run: |
          cd openwrt
          ./scripts/feeds update -a
-         ./scripts/feeds install -a
+         
+    - name: Install feeds
+      run: cd openwrt && ./scripts/feeds install -a
 
     - name: Load custom configuration
       run: |
-         cd openwrt && mv ../user/${{matrix.target}}/config.diff .config && cd ..        
-         echo "Apply files..."
-         if [ -n "$(ls -A "user/common/files" 2>/dev/null)" ]; then
-         cp -r -f user/common/files/* openwrt/package/base-files/files/
-         fi
-         if [ -n "$(ls -A "user/${{matrix.target}}/files" 2>/dev/null)" ]; then
-         cp -r -f user/${{matrix.target}}/files/* openwrt/package/base-files/files/
-         fi
+        [ -e files ] && mv files openwrt/files
+        [ -e $CONFIG_FILE ] && mv ../user/${{matrix.target}}/.config openwrt/.config
+        chmod +x $DIY_P2_SH
+        cd openwrt
+        $GITHUB_WORKSPACE/user/common/$DIY_P2_SH        
         
-         echo "Apply user/common/custom.sh"
-         if [ -f "user/common/custom.sh" ]; then
-         (
-           cd openwrt
-           /bin/bash "../user/common/custom.sh"
-         )
-         fi       
-         if [ -f "user/${{matrix.target}}/custom.sh" ]; then
-         (
-           cd openwrt
-           /bin/bash "../user/${{matrix.target}}/custom.sh"
-         )
-         fi
+
          
     - name: Download package
       id: package
