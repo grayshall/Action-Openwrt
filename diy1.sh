@@ -27,4 +27,4 @@ echo 'src-git n2n https://github.com/ntop/n2n.git' >>feeds.conf.default
 echo 'src-git ath11 https://github.com/kvalo/ath11k-firmware.git' >>feeds.conf.default
 echo 'src-git mac https://kernel.googlesource.com/pub/scm/linux/kernel/git/firmware/linux-firmware.git' >>feeds.conf.default
 echo 'src-git libcap https://kernel.googlesource.com/pub/scm/linux/kernel/git/morgan/libcap.git' >>feeds.conf.default
-echo 'src-git openwrt-upx https://github.com/kuoruan/openwrt-upx' >>feeds.conf.default
+echo 'src-git upx https://github.com/kuoruan/openwrt-upx' >>feeds.conf.default
