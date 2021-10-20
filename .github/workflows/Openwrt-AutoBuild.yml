@@ -85,7 +85,7 @@ jobs:
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
         cd openwrt
-        $GITHUB_WORKSPACE/user/common/$DIY_P1_SH
+        $GITHUB_WORKSPACE/$DIY_P1_SH
  
         
     - name: Update feeds
@@ -99,10 +99,10 @@ jobs:
     - name: Load custom configuration
       run: |
         [ -e files ] && mv files openwrt/files
-        [ -e $CONFIG_FILE ] && mv ../user/${{matrix.target}}/.config openwrt/.config
+        [ -e $CONFIG_FILE ] && mv ../user/${{matrix.target}}/$CONFIG_FILE openwrt/.config
         chmod +x $DIY_P2_SH
         cd openwrt
-        $GITHUB_WORKSPACE/user/common/$DIY_P2_SH        
+        $GITHUB_WORKSPACE/$DIY_P2_SH        
         
 
          
