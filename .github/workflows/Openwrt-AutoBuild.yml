@@ -16,7 +16,7 @@ on:
 env:
   RUN_VALIDATION: true
   FEEDS_CONF: user/feeds.conf
-  CONFIG_FILE: config.txt
+  CONFIG_FILE: a.config
   DIY_P1_SH: user/diy1.sh
   DIY_P2_SH: user/diy2.sh
   TZ: Asia/Shanghai
@@ -30,7 +30,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [lean-x64] #lean-x64,lean-ipq40xx,lean-mt7621,lean-rockchip,lienol-x64
+        target: [lean-x64,lean-rockchip] #lean-x64,lean-ipq40xx,lean-mt7621,lean-rockchip,lienol-x64
     
     steps:
     - name: Checkout
@@ -90,7 +90,7 @@ jobs:
 
     - name: Load custom configuration
       run: |
-       mv $GITHUB_WORKSPACE/user/$CONFIG_FILE openwrt/.config
+       mv $GITHUB_WORKSPACE/user/${{matrix.target}}/$CONFIG_FILE openwrt/.config
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH        
