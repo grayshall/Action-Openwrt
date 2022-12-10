@@ -14,11 +14,11 @@
 sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
 
 # Add a feed source
-echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
-echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
-echo 'src-git freifunk https://github.com/freifunk/openwrt-packages.git' >>feeds.conf.default
-echo 'src-git kenzo https://github.com/kenzok8/openwrt-packages.git' >>feeds.conf.default
-echo 'src-git small https://github.com/kenzok8/small.git' >>feeds.conf.default
+#echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
+#echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
+#echo 'src-git freifunk https://github.com/freifunk/openwrt-packages.git' >>feeds.conf.default
+#echo 'src-git kenzo https://github.com/kenzok8/openwrt-packages.git' >>feeds.conf.default
+#echo 'src-git small https://github.com/kenzok8/small.git' >>feeds.conf.default
 #echo 'src-git lienol https://github.com/Lienol/openwrt-package' >>feeds.conf.default
 #echo 'src-git rtl8821cu https://github.com/whitebatman2/rtl8821CU.git' >>feeds.conf.default
 #echo 'src-git ARMmbed https://github.com/ARMmbed/mbedtls.git' >>feeds.conf.default
