@@ -113,7 +113,7 @@ jobs:
         echo -e "$(nproc) thread compile"
         make -j$(nproc) || make -j1 V=s
         find ./bin  ! -name '*ac2100*' -name *initramfs*  -exec rm -f {} \;
-        echo "::set-output name=status::success"
+        echo "{status}={success}" >> $GITHUB_OUTPUT
         
     - name: Pack packages_dir
       if: steps.compile.outputs.status == 'success'
