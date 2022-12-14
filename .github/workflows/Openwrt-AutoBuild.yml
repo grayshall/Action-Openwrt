@@ -116,7 +116,7 @@ jobs:
         echo "{status}={success}" >> $GITHUB_OUTPUT
         
     - name: Pack packages_dir
-      if: $GITHUB_OUTPUT == 'success'
+      if: output.status == 'success'
       run: |
         cd openwrt/bin/packages/
         tar -cvf  ${{matrix.target}}_packages.tar ./
