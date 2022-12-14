@@ -113,10 +113,9 @@ jobs:
         echo -e "$(nproc) thread compile"
         make -j$(nproc) || make -j1 V=s
         find ./bin  ! -name '*ac2100*' -name *initramfs*  -exec rm -f {} \;
-        echo "{status}={success}" >> $GITHUB_OUTPUT
+        
         
     - name: Pack packages_dir
-      if: output.status == 'success'
       run: |
         cd openwrt/bin/packages/
         tar -cvf  ${{matrix.target}}_packages.tar ./
@@ -124,7 +123,6 @@ jobs:
         mv *.tar.gz ..
         
     - name: Pack targets_dir
-      if: output.status == 'success'
       run: |
         cd openwrt/bin/targets/
         tar -cvf  ${{matrix.target}}_targets.tar ./
@@ -141,34 +139,34 @@ jobs:
     
            
     - name: Upload Packages to CowTransfer
-      if: env.UPLOAD_PACKAGES_DIR == 'true' && env.UPLOAD_TO_COWTRANSFER == 'true' && !cancelled() &&  output.status == 'success'
+      if: env.UPLOAD_PACKAGES_DIR == 'true' && env.UPLOAD_TO_COWTRANSFER == 'true' && !cancelled() 
       run: |
         curl -fsSL git.io/file-transfer | sh
          ./transfer cow --block 2621440 -s -p 64 --no-progress openwrt/bin/${{matrix.target}}_packages.tar.gz
         
     - name: Upload Targetss to CowTransfer
-      if: env.UPLOAD_TARGETS_DIR == 'true' && env.UPLOAD_TO_COWTRANSFER == 'true' && !cancelled() &&　 output.status == 'success'
+      if: env.UPLOAD_TARGETS_DIR == 'true' && env.UPLOAD_TO_COWTRANSFER == 'true' && !cancelled() 
       run: |
         curl -fsSL git.io/file-transfer | sh
          ./transfer cow --block 2621440 -s -p 64 --no-progress openwrt/bin/${{matrix.target}}_targets.tar.gz
         
 
     - name: Upload packages directory
-      if: env.UPLOAD_PACKAGES_DIR == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled()　&& output.status == 'success'
+      if: env.UPLOAD_PACKAGES_DIR == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled()　
       uses: actions/upload-artifact@main
       with:
            name: OpenWrt_packages_${{matrix.target}}
            path: openwrt/bin/packages
         
     - name: Upload targets directory
-      if: env.UPLOAD_TARGETS_DIR == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled() && output.status == 'success'
+      if: env.UPLOAD_TARGETS_DIR == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled() 
       uses: actions/upload-artifact@main
       with:
           name: OpenWrt_targets_${{matrix.target}}
           path: openwrt/bin/targets
         
     - name: Upload Firmware
-      if: env.UPLOAD_FIRMWARE == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled() && output.status == 'success'
+      if: env.UPLOAD_FIRMWARE == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled() 
       uses: actions/upload-artifact@main
       with:
          name: OpenWrt_firmware_${{matrix.target}}
