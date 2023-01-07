@@ -1,4 +1,4 @@
-# 借助 GitHub Actions 的 OpenWrt 在线自动编译.
+# 借助 GitHub Actions 的 OpenWrt 在线自动编译.(感谢lgs2007m大佬）
 
 ## Redmi AX6000 闭源驱动固件 源码来源
 - padavanonly-[padavanonly/immortalwrtARM](https://github.com/padavanonly/immortalwrtARM/tree/mt7986).
