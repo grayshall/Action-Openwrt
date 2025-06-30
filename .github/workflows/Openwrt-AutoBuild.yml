@@ -17,7 +17,7 @@ on:
 env:
   RUN_VALIDATION: true
   FEEDS_CONF: user/feeds.conf
-  CONFIG_FILE: .config.txt
+  CONFIG_FILE: config.txt
   DIY_P1_SH: user/diy1.sh
   DIY_P2_SH: user/diy2.sh
   TZ: Asia/Shanghai
