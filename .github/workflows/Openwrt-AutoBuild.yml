@@ -55,12 +55,7 @@ jobs:
         sudo -E apt-get -qq clean ) &
         sudo timedatectl set-timezone "$TZ"
         
-    - name: Initialize Environment and Display System Info
-      env:
-        DEBIAN_FRONTEND: noninteractive
-      run: |
-        chmod +x $OPENWRT_NAME/*.sh
-        $GITHUB_WORKSPACE/$OPENWRT_NAME/system-Information.sh
+   
     - name: Load Settings.ini
       run: |    
         source "${GITHUB_WORKSPACE}/user/settings.ini"
