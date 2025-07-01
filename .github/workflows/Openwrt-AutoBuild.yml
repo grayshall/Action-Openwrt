@@ -75,10 +75,7 @@ jobs:
       run: |
         git clone ${{ env.REPO_URL }} -b ${{ env.REPO_BRANCH }} openwrt
         
-    - name: custom feeds
-      run: |
-        mv $GITHUB_WORKSPACE/$FEEDS_CONF openwrt/feeds.conf.default
-        
+           
  
     - name: Update feeds
       run: |
